@@ -1,0 +1,38 @@
+jenkins:
+  systemMessage: 'yo'
+  numExecutors: 1
+  mode: NORMAL
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "${JENKINS_USER}"
+          password: "${JENKINS_PASS}"
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - aws:
+              scope: GLOBAL
+              id: "AWS"
+              accessKey: "${AWS_ACCESS_KEY}" #from local machine
+              secretKey: "${AWS_SECRET_ACCESS_KEY}"
+              description: "AWS Credentials"
+          - usernamePassword:
+              scope: GLOBAL
+              id: "username"
+              username: "jhdegoma@hotmail.com"
+              password: "$8h7TTuWEftmmS7z"
+              description: "github"
+  # clouds:
+  #   ecs:
+  #     cluster: jenkins_primary_cluster
+  #     name: jenkins_agent
+        # include tunnel connection through
+        # include alternative jenkins URL 
+
+unclassified:
+  location:
+    url: http://127.0.0.1:8080

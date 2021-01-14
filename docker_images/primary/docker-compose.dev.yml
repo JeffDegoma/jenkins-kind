@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+
+  jenkins:
+    container_name: jenkins_container_${TAG}
+    image: jenkins:${TAG}
+    build:
+      context: .
+      dockerfile: ./build.Dockerfile
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    networks:
+      - default
+
+
+networks:
+  default:

@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+
+  jenkins:
+    container_name: jenkins_container_${TAG}
+    image: jenkins:${TAG}
+    build:
+      context: .
+      dockerfile: ./build.Dockerfile
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    networks:
+      - default
+    volumes:
+      # - /Users/jeff/Desktop/Jenkins_Home:/var/jenkins_home
+      - /Users/jeff/Desktop/projects/cloud/kind/jenkins-kind/docker_images/dev/jenkins.yml:/usr/share/jenkins/ref/jenkins.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+      # map local development into jenkins.yml in container for quick testing
+
+
+networks:
+  default:
+
+
+# I run docker-compose locally. only the image gets pushed into ECR
+
+#volumes get created and are mounted from the ecs host instance to docker container
+#task definition manages the configuration of volumes not in the docker-compose manifest
+#eventually volumes should originate remotely from EFS and get mounted on the ec2 host instance on boot for persistence
