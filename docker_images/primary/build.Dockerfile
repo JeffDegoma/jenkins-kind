@@ -12,6 +12,7 @@ RUN yum install sudo -y
 RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER jenkins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY jenkins.yml /usr/share/jenkins/ref/jenkins.yml
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 ENV JENKINS_USER admin 
 ENV JENKINS_PASS admin

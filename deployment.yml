@@ -15,7 +15,7 @@ spec:
       containers:
       - name: jenkins-jcasc
         imagePullPolicy: Never
-        image: jenkins:jan2021
+        image: jenkins:test
         ports:
           - containerPort: 8080
         resources:
