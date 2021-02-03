@@ -12,10 +12,13 @@ spec:
       labels:
         app: app
     spec:
+      serviceAccountName: jenkins
       containers:
       - name: jenkins-jcasc
         imagePullPolicy: Never
-        image: jenkins:prod
+        # imagePullPolicy: IfNotPresent
+        # image: jenkins/jenkins:2.235.1-lts-alpine
+        image: jenkins:focused_fermi
         ports:
           - containerPort: 8080
             protocol: TCP
@@ -29,10 +32,18 @@ spec:
         #     cpu: 300m
         #     memory: 50Mi
         volumeMounts:
+          # - mountPath: /var/jenkins_home
+          #   name: jenkins
           - mountPath: /var
             name: jenkins
             subPath: jenkins_home
+          - mountPath: /usr/share/jenkins/ref/jenkins.yml
+            subPath: jenkins.yml
+            name: jcasc-config
       volumes:
         - name: jenkins
           persistentVolumeClaim:
             claimName: jenkins-claim
+        - name: jcasc-config
+          configMap: # specified as a configmap; mount jcasc-configmap.yml
+            name: jcasc-config # match name in configmap.yml

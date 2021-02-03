@@ -1,5 +1,5 @@
 jenkins:
-  systemMessage: 'yo'
+  systemMessage: 'shoya'
   numExecutors: 1
   mode: NORMAL
 
@@ -26,13 +26,15 @@ credentials:
               username: "jhdegoma@hotmail.com"
               password: "$8h7TTuWEftmmS7z"
               description: "github"
-  # clouds:
+  clouds:
+    - kubernetes:
+        namespace: jenkins
   #   ecs:
   #     cluster: jenkins_primary_cluster
   #     name: jenkins_agent
         # include tunnel connection through
         # include alternative jenkins URL 
 
-unclassified:
-  location:
-    url: http://127.0.0.1:8080
+# unclassified:
+#   location:
+#     url: http://127.0.0.1:8080

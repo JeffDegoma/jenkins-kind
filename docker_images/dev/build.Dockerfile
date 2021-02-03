@@ -1,8 +1,8 @@
-FROM jenkins/jenkins:2.263.1-lts-centos
+FROM jenkins/jenkins:2.263.3-lts-centos
 USER root
 #docker
 RUN dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-RUN dnf install docker-ce -y
+RUN dnf install docker-ce --nobest -y
 RUN dnf clean all
 RUN usermod -a -G docker jenkins
 RUN usermod -a -G root jenkins
@@ -17,6 +17,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 #jenkins config
 USER jenkins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt 
+# COPY jenkins.yml /usr/share/jenkins/ref/jenkins.yml
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 ENV JENKINS_USER admin
 ENV JENKINS_PASS admin

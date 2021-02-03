@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jcasc-config
+  namespace: jenkins
+data:
+  jenkins.yml: |-
+    jenkins:
+      systemMessage: 'shoya'
+      numExecutors: 1
+      mode: NORMAL
+
+      securityRealm:
+        local:
+          allowsSignup: false
+          users:
+            - id: "${JENKINS_USER}"
+              password: "${JENKINS_PASS}"
+      clouds:
+      - kubernetes:
+          name: kubernetes
+          namespace: jenkins
+
+    credentials:
+      system:
+        domainCredentials:
+          - credentials:
+              - aws:
+                  scope: GLOBAL
+                  id: "AWS"
+                  accessKey: "${AWS_ACCESS_KEY}" #from local machine
+                  secretKey: "${AWS_SECRET_ACCESS_KEY}"
+                  description: "AWS Credentials"
+              - usernamePassword:
+                  scope: GLOBAL
+                  id: "username"
+                  username: "jhdegoma@hotmail.com"
+                  password: "$8h7TTuWEftmmS7z"
+                  description: "github"
